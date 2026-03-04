@@ -1,5 +1,17 @@
 {
   "dependencies": {
+    "express": "^5.2.1",
     "json-server": "^1.0.0-beta.5"
-  }
+  },
+  "name": "proyecto-integrador-backend",
+  "version": "1.0.0",
+  "description": "| Nombre | Rol |\r | :--- | :--- |\r | **Julián Andrés Diaz Chaparro** | Product Owner |\r | **Luis Carlos Villamizar Sanchez** | Backend |\r | **Carol Dayana Lizarazo Colmenares** | Frontend |",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
