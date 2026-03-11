@@ -1,9 +1,9 @@
-import { create, getAll, getById, update, destroy, updateStatus } from '../models/tasks_models.js'
+import { create, getAll, getById, update, destroy, updateStatus, assingTaskToUser, getAllUsersByTask, destroyUserByTask, getAllTaskByFilter } from '../models/tasks_models.js'
 
 export const postTask = async (req,res) =>{
     try {
-        const {id, titulo, descripcion, estado} = req.body;
-        const task = await create(id, titulo, descripcion, estado);
+        const {id, titulo,usuarios, descripcion, estado, prioridad, fecha_registro} = req.body;
+        const task = await create(id, titulo,usuarios, descripcion, estado, prioridad, fecha_registro);
         res.status(task.status).json(task);
     } catch (error) {
         res.status(500).json({
@@ -38,8 +38,8 @@ export const getTaskById = async (req,res) =>{
 export const updateTask = async (req,res) =>{
     try {
         const {id} = req.params;
-        const {titulo, descripcion, estado} = req.body;
-        const task = await update(id, titulo, descripcion, estado);
+        const {titulo,usuarios, descripcion, estado, prioridad, fecha_registro} = req.body;
+        const task = await update(id, titulo,usuarios, descripcion, estado, prioridad, fecha_registro);
         res.status(task.status).json(task);
     } catch (error) {
         res.status(500).json({
@@ -75,29 +75,50 @@ export const updateTaskStatus = async (req,res) =>{
 }
 export const assingTask = async (req,res) =>{
     try {
-        
+        const { taskid } = req.params;
+        const { userid } = req.body;
+        const task = await assingTaskToUser(taskid, userid);
+        res.status(task.status).json(task);
     } catch (error) {
-        
+        res.status(500).json({
+            message: 'Error al asignar la tarea',
+            error: error.message
+        });
     }
 }
 export const getUsersByTask = async (req,res) =>{
     try {
-        
+        const { taskid } = req.params;
+        const task = await getAllUsersByTask(taskid);
+        res.status(task.status).json(task);
     } catch (error) {
-        
+        res.status(500).json({
+            message: 'Error al obtener los usuarios de la tarea',
+            error: error.message
+        })
     }
 }
 export const deleteUserByTask = async (req,res) =>{
     try {
-        
+        const { taskid, userid } = req.params;
+        const task = await destroyUserByTask(taskid, userid);
+        res.status(task.status).json(task);
     } catch (error) {
-        
+        res.status(500).json({
+            message: 'Error al eliminar los usuarios de la tarea',
+            error: error.message
+        })
     }
 }
 export const getTaskByFilter = async (req,res) =>{
     try {
-        
+         const {estado, prioridad, usuario, fecha_inicio, fecha_fin} = req.query;
+         const task = await getAllTaskByFilter(estado, prioridad, usuario, fecha_inicio, fecha_fin);
+         res.status(task.status).json(task);
     } catch (error) {
-        
+        res.status(500).json({
+            message: 'Error al filtrar las tareas',
+            error: error.message
+        })
     }
 }

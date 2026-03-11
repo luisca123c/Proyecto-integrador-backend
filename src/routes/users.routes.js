@@ -1,4 +1,4 @@
-import { postUser, getAllUsers, getUserById, updateUser, deleteUser, updateUserStatus } from '../controllers/users.controller.js';
+import { postUser, getAllUsers, getUserById, updateUser, deleteUser, updateUserStatus, getTasksByUser } from '../controllers/users.controller.js';
 
 import express from 'express';
 const router = express.Router();
@@ -15,6 +15,6 @@ router.delete('/users/:id', deleteUser);
 
 router.patch('/users/:id/estado', updateUserStatus);
 
-// router.get('/users/:userid/tasks', getTasksByUser);
+router.get('/users/:userid/tasks', getTasksByUser);
 
 export default router;

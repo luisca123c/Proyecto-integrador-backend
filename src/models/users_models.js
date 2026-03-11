@@ -42,3 +42,9 @@ export const updateStatus = async (id, estado) => {
         message : `Estado de usuario con id ${id} actualizado a ${estado}`
     }
 }
+export const getAllTasksByUser = async (userid) => {
+    return{
+        status : 200,
+        message : `Tareas asignadas a usuario con id ${userid} obtenidas correctamente`
+    }
+}

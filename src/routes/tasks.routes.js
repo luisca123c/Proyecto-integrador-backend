@@ -7,6 +7,8 @@ router.post('/tasks', postTask);
 
 router.get('/tasks', getAllTasks);
 
+router.get('/tasks/filter', getTaskByFilter);
+
 router.get('/tasks/:id', getTaskById);
 
 router.put('/tasks/:id', updateTask);
@@ -21,7 +23,6 @@ router.get('/tasks/:taskid/users', getUsersByTask);
 
 router.delete('/tasks/:taskid/users/:userid', deleteUserByTask);
 
-router.get('/tasks/filter', getTaskByFilter);
 
 
 

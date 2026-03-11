@@ -5,7 +5,7 @@ import tasksRoutes from './routes/tasks.routes.js';
 const app = express();
 const port = 3000;
 
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 app.use('/api', usersRoutes);
 app.use('/api', tasksRoutes);
 
