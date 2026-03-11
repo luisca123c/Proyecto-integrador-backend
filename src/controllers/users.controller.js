@@ -8,7 +8,7 @@ export const postUser = async (req, res) => {
   }
   catch (error) {
     res.status(500).json({ 
-      error: 'Error al crear el usuario',
+      message: 'Error al crear el usuario',
       error: error.message
     });
   }
@@ -20,7 +20,7 @@ export const getAllUsers = async (req, res) => {
   }
   catch (error) {
     res.status(500).json({
-      error: 'Error al obtener los usuarios',
+      message: 'Error al obtener los usuarios',
       error: error.message
     });
   }
@@ -32,7 +32,7 @@ export const getUserById = async (req, res) => {
     res.status(user.status).json(user);
   } catch (error) {
     res.status(500).json({
-      error: 'Error al obtener el usuario',
+      message: 'Error al obtener el usuario',
       error: error.message
     });
   }
@@ -46,7 +46,7 @@ export const updateUser = async (req, res) => {
   }
   catch (error) {
     res.status(500).json({
-      error: 'Error al actualizar el usuario',
+      message: 'Error al actualizar el usuario',
       error: error.message
     });
   }
@@ -59,7 +59,7 @@ export const deleteUser = async (req, res) => {
   }
   catch (error) {
     res.status(500).json({
-      error: 'Error al eliminar el usuario',
+      message: 'Error al eliminar el usuario',
       error: error.message
     });
   }
@@ -67,14 +67,24 @@ export const deleteUser = async (req, res) => {
 export const updateUserStatus = async (req, res) => {
   try {
     const {id} = req.params;
-    const {status} = req.body;
-    const user = await updateStatus(id, status);
+    const {estado} = req.body;
+    const user = await updateStatus(id, estado);
     res.status(user.status).json(user);
   }
   catch (error) {
     res.status(500).json({
-      error: 'Error al actualizar el estado del usuario',
+      message: 'Error al actualizar el estado del usuario',
       error: error.message
     });
     }  
   }
+export const getTasksByUser = async (req, res) => {
+  try {
+    
+  } catch (error) {
+    res.status(500).json({
+      message: 'Error al obtener las tareas del usuario',
+       error: error.message
+    });
+  }
+}

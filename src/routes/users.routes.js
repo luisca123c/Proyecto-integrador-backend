@@ -13,6 +13,8 @@ router.put('/users/:id', updateUser);
 
 router.delete('/users/:id', deleteUser);
 
-router.patch('/users/:id/status', updateUserStatus);
+router.patch('/users/:id/estado', updateUserStatus);
+
+// router.get('/users/:userid/tasks', getTasksByUser);
 
 export default router;
