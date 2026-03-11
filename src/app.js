@@ -1,16 +1,14 @@
-import { getUsers, postUser } from './routes/users.routes.js'
-import { getTasks, postTask } from './routes/tasks.routes.js'
+import express from 'express';
+import usersRoutes from './routes/users.routes.js';
+import tasksRoutes from './routes/tasks.routes.js';
 
-import express from 'express'
-const app = express()
-const port = 3000
+const app = express();
+const port = 3000;
 
-app.get('/users', getUsers)
-app.post('/users', postUser)
-
-app.get('/tasks', getTasks)
-app.post('/tasks', postTask)
+app.use(express.urlencoded({ extended: true }));
+app.use('/api', usersRoutes);
+app.use('/api', tasksRoutes);
 
 app.listen(port, () => {
-  console.log(`Servidor escuchando en http://localhost:${port}`)
-})
+    console.log(`Servidor escuchando en http://localhost:${port}`);
+});
