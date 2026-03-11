@@ -1,11 +1,11 @@
-import { postUser, getUsers, getUserById, updateUser, deleteUser, updateUserStatus } from '../controllers/users.controller.js';
+import { postUser, getAllUsers, getUserById, updateUser, deleteUser, updateUserStatus } from '../controllers/users.controller.js';
 
 import express from 'express';
 const router = express.Router();
 
 router.post('/users', postUser);
 
-router.get('/users', getUsers);
+router.get('/users', getAllUsers);
 
 router.get('/users/:id', getUserById);
 

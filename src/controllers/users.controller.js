@@ -1,10 +1,10 @@
-import { create, getAll } from '../services/users_service.js';
+import { create, getAll, getById, update, destroy, updateStatus } from '../models/users_models.js'
 
 export const postUser = async (req, res) => {
   try {
-    const {nombre, correo, contraseña } = req.body;
-    const User = await create(nombre, correo, contraseña);
-    res.status(201).json(User);
+    const {id, nombre, correo, estado } = req.body;
+    const User = await create(id, nombre, correo, estado);
+    res.status(User.status).json(User);
   }
   catch (error) {
     res.status(500).json({ 
@@ -16,7 +16,7 @@ export const postUser = async (req, res) => {
 export const getAllUsers = async (req, res) => {
   try {
     const users = await getAll();
-    res.status(200).json(users);
+    res.status(users.status).json(users);
   }
   catch (error) {
     res.status(500).json({
@@ -29,7 +29,7 @@ export const getUserById = async (req, res) => {
   try {
     const {id} = req.params;
     const user = await getById(id);
-    res.status(200).json(user);
+    res.status(user.status).json(user);
   } catch (error) {
     res.status(500).json({
       error: 'Error al obtener el usuario',
@@ -40,9 +40,9 @@ export const getUserById = async (req, res) => {
 export const updateUser = async (req, res) => {
   try {
     const {id} = req.params;
-    const {nombre, correo, contraseña} = req.body;
-    const user = await update(id, nombre, correo, contraseña);
-    res.status(200).json(user);
+    const {nombre, correo, estado} = req.body;
+    const user = await update(id, nombre, correo, estado);
+    res.status(user.status).json(user);
   }
   catch (error) {
     res.status(500).json({
@@ -55,7 +55,7 @@ export const deleteUser = async (req, res) => {
   try {
     const {id} = req.params;
     const user = await destroy(id);
-    res.status(200).json(user);
+    res.status(user.status).json(user);
   }
   catch (error) {
     res.status(500).json({
@@ -69,7 +69,7 @@ export const updateUserStatus = async (req, res) => {
     const {id} = req.params;
     const {status} = req.body;
     const user = await updateStatus(id, status);
-    res.status(200).json(user);
+    res.status(user.status).json(user);
   }
   catch (error) {
     res.status(500).json({
