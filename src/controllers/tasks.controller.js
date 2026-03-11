@@ -1,3 +1,5 @@
+import { create, getAll, getById, update, destroy, updateStatus } from '../models/tasks_models.js'
+
 export const postTask = async (req,res) =>{
     try {
         const {id, titulo, descripcion, estado} = req.body;
@@ -49,7 +51,7 @@ export const updateTask = async (req,res) =>{
 export const deleteTask = async (req,res) =>{
     try {
         const {id} = req.params;
-        const task = await deleteById(id);
+        const task = await destroy(id);
         res.status(task.status).json(task);
     } catch (error) {
         res.status(500).json({

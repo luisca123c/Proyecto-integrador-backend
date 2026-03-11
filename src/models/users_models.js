@@ -6,7 +6,6 @@ export const create = async (id, nombre, correo, estado) => {
         nombre: ${nombre} 
         correo: ${correo}
         estado: ${estado}`
-        
     }
 }
 export const getAll = async () =>{
