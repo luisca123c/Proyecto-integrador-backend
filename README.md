@@ -10,3 +10,11 @@
 
 ---
 
+## Rama de desarrollo
+
+Este proyecto debe abrirse y trabajarse sobre la rama **`developer`**.
+
+```bash
+git checkout developer
+```
+
