@@ -2,24 +2,47 @@ import { taskModel } from '../models/tasks_models.js'
 
 export const postTask = async (req,res) =>{
     try {
-        const {id, titulo,usuarios, descripcion, estado, prioridad, fecha_registro} = req.body;
-        const task = await taskModel.create(id, titulo,usuarios, descripcion, estado, prioridad, fecha_registro);
-        res.status(task.status).json(task);
+        const {title, ussers_id, description, status, priority} = req.body;
+        if (!title || !ussers_id || !description || !status || !priority) {
+            return res.status(400).json({
+                success: false,
+                message: 'Faltan datos obligatorios para crear la tarea',
+                data:[],
+                errors: [],
+            });
+        }
+        const newTask = await taskModel.create(title, ussers_id, description, status, priority);
+
+        res.status(201).json({
+            success: true,
+            message: 'Tarea creada correctamente',
+            data: newTask,
+            errors: [],
+        });
     } catch (error) {
         res.status(500).json({
-            message: 'Error al crear la tarea',
-            error: error.message
+            success: false,
+            message: 'Error interno al crear la tarea',
+            data: [],
+            errors: [error.message],
         });
     }
 }
 export const getAllTasks = async (req,res) =>{
     try {
         const tasks = await taskModel.getAll();
-        res.status(tasks.status).json(tasks);
+        res.status(200).json({
+            success: true,
+            message: 'Tareas obtenidas correctamente',
+            data: tasks,
+            errors: [],
+        });
     } catch (error) {
         res.status(500).json({
-            message: 'Error al obtener las tareas',
-            error: error.message
+            success: false,
+            message: 'Error interno al obtener las tareas',
+            data: [],
+            errors: [error.message],
         });
     }
 }
@@ -27,36 +50,74 @@ export const getTaskById = async (req,res) =>{
     try {
         const {id} = req.params;
         const task = await taskModel.getById(id);
-        res.status(task.status).json(task);
+        res.status(200).json(
+            {
+                success: true,
+                message: 'Tarea obtenida correctamente',
+                data: task,
+                errors: [],
+            }
+        );
     } catch (error) {
         res.status(500).json({
-            message: 'Error al obtener la tarea',
-            error: error.message
+            success: false,
+            message: 'Error interno al obtener la tarea',
+            data: [],
+            errors: [error.message]
         });
     }
 }
 export const updateTask = async (req,res) =>{
     try {
         const {id} = req.params;
-        const {titulo,usuarios, descripcion, estado, prioridad, fecha_registro} = req.body;
-        const task = await taskModel.update(id, titulo,usuarios, descripcion, estado, prioridad, fecha_registro);
-        res.status(task.status).json(task);
+        const updatedTask = await taskModel.update(Number(id), req.body);
+        if (!updatedTask) {
+            return res.status(404).json({
+                success: false,
+                message: `Tarea con id ${id} no encontrada`,
+                data: [],
+                errors: [],
+            });
+        }
+        res.status(200).json({
+            success: true,
+            message: 'Tarea actualizada correctamente',
+            data: updatedTask,
+            errors: [],
+        });
     } catch (error) {
         res.status(500).json({
-            message: 'Error al actualizar la tarea',
-            error: error.message
+            success: false,
+            message: 'Error interno al actualizar la tarea',
+            data: [],
+            errors: [error.message],
         });
     }
 }
 export const deleteTask = async (req,res) =>{
     try {
         const {id} = req.params;
-        const task = await taskModel.destroy(id);
-        res.status(task.status).json(task);
+        const isdeleted = await taskModel.delete(Number(id));
+        if (!isdeleted) {
+            return res.status(404).json({
+                success: false,
+                message: `Tarea con id ${id} no encontrada`,
+                data: [],
+                errors: [],
+            });
+        }
+        res.status(200).json({
+            success: true,
+            message: 'Tarea eliminada correctamente',
+            data: [],
+            errors: [],
+        });
     } catch (error) {
         res.status(500).json({
-            message: 'Error al eliminar la tarea',
-            error: error.message
+            success: false,
+            message: 'Error interno al eliminar la tarea',
+            data: [],
+            errors: [error.message]
         });
     }
 }

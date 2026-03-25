@@ -11,21 +11,21 @@ use proyecto_integrador;
 
 create table users(
 	id int auto_increment primary key,
-    nombre_completo varchar(150) not null,
-    correo varchar(150) not null,
-    activo boolean not null default true,
+    full_name varchar(150) not null,
+    email varchar(150) not null,
+    active boolean not null default true,
     created_ud TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_up TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 create table tasks(
 	id int auto_increment primary key,
-    titulo varchar(150) not null,
-    descripcion varchar(200) not null,
-    prioridad varchar(100) not null,
-    estado varchar(100) not null,
-    created_ud TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_up TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    title varchar(150) not null,
+    description varchar(200) not null,
+    priority varchar(100) not null,
+    status varchar(100) not null,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 create table tasks_users(

@@ -1,54 +1,63 @@
 import pool from '../config/db.js';
 
 export const taskModel = {
-
+    create : async (newTask) => {
+        const {title,usuarios, description, status, priority} = newTask;
+        const [result] = await pool.query(
+            "INSERT INTO tasks (title, description, status, priority) VALUES (?, ?, ?, ?)",
+            [title, description, status, priority],
+        );
+        for (const usuario of usuarios) {
+             await pool.query(
+                "INSERT INTO task_users (task_id, user_id) VALUES (?, ?)",
+                [result.insertId, usuario],
+            );
+        }
+        const [createdTask] = await pool.query("SELECT * FROM tasks WHERE id = ?", [result.insertId]);
+        const [assignedUsers] = await pool.query(
+            "SELECT u.id, u.name FROM users u JOIN task_users tu ON u.id = tu.user_id WHERE tu.task_id = ?",
+            [result.insertId]
+        );
+        return createdTask[0], assignedUsers[0];
+    },
+    getAll: async () => {
+        const [rows] = await pool.query("SELECT * FROM tasks");
+        return rows;
+    },
+    getById: async (id) => {
+        const [rows] = await pool.query("SELECT * FROM tasks WHERE id = ?", [id]);
+        return rows[0];
+    },
+    update: async (id, updatedTask) => {
+        const {title,usuarios, description, status, priority} = updatedTask;
+        const [result] = await pool.query(
+            "UPDATE tasks SET title = ?, description = ?, status = ?, priority = ? WHERE id = ?",
+            [title, description, status, priority, id]
+        );
+        if (result.affectedRows === 0) {
+            return null;
+        }
+        for (const usuario of usuarios) {
+            await pool.query(
+                "INSERT INTO task_users (task_id, user_id) VALUES (?, ?)",
+                [id, usuario],
+            );
+        }
+        const [updatedTask] = await pool.query("SELECT * FROM tasks WHERE id = ?", [id]);
+        const [assignedUsers] = await pool.query(
+            "SELECT u.id, u.name FROM users u JOIN task_users tu ON u.id = tu.user_id WHERE tu.task_id = ?",
+            [id]
+        );
+        return updatedTask[0], assignedUsers[0];
+    },
+    delete: async (id) => {
+        const [result] = await pool.query("DELETE FROM tasks WHERE id = ?", [id]);
+        return result.affectedRows > 0;
+    },
+    
 }
 
 
-export const create = async (id, titulo,usuarios, descripcion, estado, prioridad, fecha_registro) => {
-    return {
-        status : 201,
-        message: `Tarea creada correctamente con los datos: 
-        id: ${id}
-        titulo: ${titulo}
-        usuarios: ${usuarios}
-        descripcion: ${descripcion}
-        estado: ${estado}
-        prioridad: ${prioridad}
-        fecha_registro: ${fecha_registro}`
-    }
-}
-export const getAll = async () =>{
-    return{
-        status : 200,
-        message : "Tareas obtenidas con exito"
-    }
-}
-export const getById = async (id) =>{
-    return{
-        status : 200,
-        message : `Tarea con id ${id} obtenida correctamente`
-    }
-}
-
-export const update = async (id, titulo,usuarios, descripcion, estado, prioridad, fecha_registro) => {
-    return{
-        status: 200,
-        message : `Tarea con id ${id} actualizada con los siguientes datos:
-        titulo: ${titulo}
-        usuarios: ${usuarios}
-        descripcion: ${descripcion}
-        estado: ${estado}
-        prioridad: ${prioridad}
-        fecha_registro: ${fecha_registro}`
-    }
-} 
-export const destroy = async (id) => {
-    return{
-        status: 200,
-        message : `Tarea con id ${id} Eliminada`
-    }
-} 
 export const updateStatus = async (id, estado) => {
     return{
         status : 200,
