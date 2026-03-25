@@ -1,7 +1,9 @@
 {
   "dependencies": {
+    "dotenv": "^17.3.1",
     "express": "^5.2.1",
-    "json-server": "^1.0.0-beta.5"
+    "json-server": "^1.0.0-beta.5",
+    "mysql2": "^3.20.0"
   },
   "name": "proyecto-integrador-backend",
   "version": "1.0.0",
@@ -9,7 +11,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev" : "node src/app.js",
+    "dev": "node src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

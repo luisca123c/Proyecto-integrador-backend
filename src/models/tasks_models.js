@@ -18,7 +18,7 @@ export const taskModel = {
             "SELECT u.id, u.name FROM users u JOIN task_users tu ON u.id = tu.user_id WHERE tu.task_id = ?",
             [result.insertId]
         );
-        return createdTask[0], assignedUsers[0];
+        return [createdTask[0], assignedUsers[0]];
     },
     getAll: async () => {
         const [rows] = await pool.query("SELECT * FROM tasks");
@@ -48,22 +48,29 @@ export const taskModel = {
             "SELECT u.id, u.name FROM users u JOIN task_users tu ON u.id = tu.user_id WHERE tu.task_id = ?",
             [id]
         );
-        return updatedTask[0], assignedUsers[0];
+        return [updatedTask[0], assignedUsers[0]];
     },
     delete: async (id) => {
         const [result] = await pool.query("DELETE FROM tasks WHERE id = ?", [id]);
         return result.affectedRows > 0;
     },
-    
+    updateStatus: async (id, status) => {
+        const [result] = await pool.query(
+            "UPDATE tasks SET status = ? WHERE id = ?",
+            [status, id]
+        );
+        return result.affectedRows > 0;
+     }
+     assingTaskToUser: async (taskid, userid) => {
+        const [result] = await pool.query(
+            "INSERT INTO task_users (task_id, user_id) VALUES (?, ?)",
+            [taskid, userid]
+        );
+        return result.affectedRows > 0;
+     },
+     getAllUsersByTask: async (taskid) => {
 }
 
-
-export const updateStatus = async (id, estado) => {
-    return{
-        status : 200,
-        message : `Estado de tarea con id ${id} actualizado a ${estado}`
-    }
-}
 export const assingTaskToUser = async (taskid, userid) => {
     return{
         status : 200,

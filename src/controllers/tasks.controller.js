@@ -125,12 +125,27 @@ export const updateTaskStatus = async (req,res) =>{
     try {
         const {id} = req.params;
         const {estado} = req.body;
-        const task = await taskModel.updateStatus(id, estado);
-        res.status(task.status).json(task);
+        const updateStatusTask = await taskModel.updateStatus(id, estado);
+        if (!updateStatusTask) {
+            return res.status(404).json({
+                success: false,
+                message: `Tarea con id ${id} no encontrada`,
+                data: [],
+                errors: [],
+            });
+        }
+        res.status(200).json({
+            success: true,
+            message: 'Estado de la tarea actualizado correctamente',
+            data: updateStatusTask,
+            errors: [],
+        });
     } catch (error) {
         res.status(500).json({
-            message: 'Error al actualizar el estado de la tarea',
-            error : error.message
+            success: false,
+            message: 'Error interno al actualizar el estado de la tarea',
+            data: [],
+            errors : [error.message],
         });
     }
 }
@@ -138,8 +153,8 @@ export const assingTask = async (req,res) =>{
     try {
         const { taskid } = req.params;
         const { userid } = req.body;
-        const task = await taskModel.assingTaskToUser(taskid, userid);
-        res.status(task.status).json(task);
+        const taskassing = await taskModel.assingTaskToUser(taskid, userid);
+        res.status(taskassing.status).json(taskassing);
     } catch (error) {
         res.status(500).json({
             message: 'Error al asignar la tarea',
