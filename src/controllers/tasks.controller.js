@@ -1,9 +1,9 @@
-import { create, getAll, getById, update, destroy, updateStatus, assingTaskToUser, getAllUsersByTask, destroyUserByTask, getAllTaskByFilter } from '../models/tasks_models.js'
+import { taskModel } from '../models/tasks_models.js'
 
 export const postTask = async (req,res) =>{
     try {
         const {id, titulo,usuarios, descripcion, estado, prioridad, fecha_registro} = req.body;
-        const task = await create(id, titulo,usuarios, descripcion, estado, prioridad, fecha_registro);
+        const task = await taskModel.create(id, titulo,usuarios, descripcion, estado, prioridad, fecha_registro);
         res.status(task.status).json(task);
     } catch (error) {
         res.status(500).json({
@@ -14,7 +14,7 @@ export const postTask = async (req,res) =>{
 }
 export const getAllTasks = async (req,res) =>{
     try {
-        const tasks = await getAll();
+        const tasks = await taskModel.getAll();
         res.status(tasks.status).json(tasks);
     } catch (error) {
         res.status(500).json({
@@ -26,7 +26,7 @@ export const getAllTasks = async (req,res) =>{
 export const getTaskById = async (req,res) =>{
     try {
         const {id} = req.params;
-        const task = await getById(id);
+        const task = await taskModel.getById(id);
         res.status(task.status).json(task);
     } catch (error) {
         res.status(500).json({
@@ -39,7 +39,7 @@ export const updateTask = async (req,res) =>{
     try {
         const {id} = req.params;
         const {titulo,usuarios, descripcion, estado, prioridad, fecha_registro} = req.body;
-        const task = await update(id, titulo,usuarios, descripcion, estado, prioridad, fecha_registro);
+        const task = await taskModel.update(id, titulo,usuarios, descripcion, estado, prioridad, fecha_registro);
         res.status(task.status).json(task);
     } catch (error) {
         res.status(500).json({
@@ -51,7 +51,7 @@ export const updateTask = async (req,res) =>{
 export const deleteTask = async (req,res) =>{
     try {
         const {id} = req.params;
-        const task = await destroy(id);
+        const task = await taskModel.destroy(id);
         res.status(task.status).json(task);
     } catch (error) {
         res.status(500).json({
@@ -64,7 +64,7 @@ export const updateTaskStatus = async (req,res) =>{
     try {
         const {id} = req.params;
         const {estado} = req.body;
-        const task = await updateStatus(id, estado);
+        const task = await taskModel.updateStatus(id, estado);
         res.status(task.status).json(task);
     } catch (error) {
         res.status(500).json({
@@ -77,7 +77,7 @@ export const assingTask = async (req,res) =>{
     try {
         const { taskid } = req.params;
         const { userid } = req.body;
-        const task = await assingTaskToUser(taskid, userid);
+        const task = await taskModel.assingTaskToUser(taskid, userid);
         res.status(task.status).json(task);
     } catch (error) {
         res.status(500).json({
@@ -89,7 +89,7 @@ export const assingTask = async (req,res) =>{
 export const getUsersByTask = async (req,res) =>{
     try {
         const { taskid } = req.params;
-        const task = await getAllUsersByTask(taskid);
+        const task = await taskModel.getAllUsersByTask(taskid);
         res.status(task.status).json(task);
     } catch (error) {
         res.status(500).json({
@@ -101,7 +101,7 @@ export const getUsersByTask = async (req,res) =>{
 export const deleteUserByTask = async (req,res) =>{
     try {
         const { taskid, userid } = req.params;
-        const task = await destroyUserByTask(taskid, userid);
+        const task = await taskModel.destroyUserByTask(taskid, userid);
         res.status(task.status).json(task);
     } catch (error) {
         res.status(500).json({
@@ -113,7 +113,7 @@ export const deleteUserByTask = async (req,res) =>{
 export const getTaskByFilter = async (req,res) =>{
     try {
          const {estado, prioridad, usuario, fecha_inicio, fecha_fin} = req.query;
-         const task = await getAllTaskByFilter(estado, prioridad, usuario, fecha_inicio, fecha_fin);
+         const task = await taskModel.getAllTaskByFilter(estado, prioridad, usuario, fecha_inicio, fecha_fin);
          res.status(task.status).json(task);
     } catch (error) {
         res.status(500).json({

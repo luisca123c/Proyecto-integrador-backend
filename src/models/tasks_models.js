@@ -1,3 +1,10 @@
+import pool from '../config/db.js';
+
+export const taskModel = {
+
+}
+
+
 export const create = async (id, titulo,usuarios, descripcion, estado, prioridad, fecha_registro) => {
     return {
         status : 201,

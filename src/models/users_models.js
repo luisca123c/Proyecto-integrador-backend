@@ -1,3 +1,9 @@
+import pool from '../config/db.js';
+
+export const userModel = {
+
+}
+
 export const create = async (id, nombre, correo, estado) => {
     return {
         status : 201,

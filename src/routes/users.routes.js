@@ -1,20 +1,20 @@
 import { postUser, getAllUsers, getUserById, updateUser, deleteUser, updateUserStatus, getTasksByUser } from '../controllers/users.controller.js';
 
 import express from 'express';
-const router = express.Router();
+const userRouter = express.Router();
 
-router.post('/users', postUser);
+userRouter.post('/users', postUser);
 
-router.get('/users', getAllUsers);
+userRouter.get('/users', getAllUsers);
 
-router.get('/users/:id', getUserById);
+userRouter.get('/users/:id', getUserById);
 
-router.put('/users/:id', updateUser);
+userRouter.put('/users/:id', updateUser);
 
-router.delete('/users/:id', deleteUser);
+userRouter.delete('/users/:id', deleteUser);
 
-router.patch('/users/:id/estado', updateUserStatus);
+userRouter.patch('/users/:id/estado', updateUserStatus);
 
-router.get('/users/:userid/tasks', getTasksByUser);
+userRouter.get('/users/:userid/tasks', getTasksByUser);
 
-export default router;
+export default userRouter;

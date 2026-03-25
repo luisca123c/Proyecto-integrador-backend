@@ -1,29 +1,30 @@
 import { postTask, getAllTasks, getTaskById, updateTask, deleteTask, updateTaskStatus, assingTask, getUsersByTask, deleteUserByTask, getTaskByFilter } from '../controllers/tasks.controller.js'
 
 import express from 'express';
-const router = express.Router();
 
-router.post('/tasks', postTask);
+const taskRouter = express.Router();
 
-router.get('/tasks', getAllTasks);
+taskRouter.post('/tasks', postTask);
 
-router.get('/tasks/filter', getTaskByFilter);
+taskRouter.get('/tasks', getAllTasks);
 
-router.get('/tasks/:id', getTaskById);
+taskRouter.get('/tasks/filter', getTaskByFilter);
 
-router.put('/tasks/:id', updateTask);
+taskRouter.get('/tasks/:id', getTaskById);
 
-router.delete('/tasks/:id', deleteTask);
+taskRouter.put('/tasks/:id', updateTask);
 
-router.patch('/tasks/:id/estado', updateTaskStatus);
+taskRouter.delete('/tasks/:id', deleteTask);
 
-router.post('/tasks/:taskid/assing', assingTask);
+taskRouter.patch('/tasks/:id/estado', updateTaskStatus);
 
-router.get('/tasks/:taskid/users', getUsersByTask);
+taskRouter.post('/tasks/:taskid/assing', assingTask);
 
-router.delete('/tasks/:taskid/users/:userid', deleteUserByTask);
+taskRouter.get('/tasks/:taskid/users', getUsersByTask);
+
+taskRouter.delete('/tasks/:taskid/users/:userid', deleteUserByTask);
 
 
 
 
-export default router;
+export default taskRouter;
