@@ -1,4 +1,4 @@
-insert into users(nombre_completo,correo,activo) values
+insert into users(full_name,email,active) values
 ("Carlos Ruiz", "juan.perez@email.com", true),
 ("Lucía Fernández", "lucia.fdez@email.com", true),
 ("Marcos Paez", "marcos.paez@email.com", true),
@@ -6,7 +6,7 @@ insert into users(nombre_completo,correo,activo) values
 ("Diego Mora", "diego.mora@email.com", false)
 ;
 
-insert into tasks(titulo,descripcion,prioridad,estado) values
+insert into tasks(title,description,priority,status) values
 ("Diseñar mockups", "Crear los wireframes del módulo de usuarios", "Alta", "En Progreso"),
 ("Configurar base de datos", "Instalar y configurar PostgreSQL en el servidor", "Alta", "Pendiente")
 ;
