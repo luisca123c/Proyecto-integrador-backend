@@ -1,14 +1,17 @@
 {
-  "$schema": "./node_modules/json-server/schema.json",
-  "posts": [
-    { "id": "1", "title": "a title", "views": 100 },
-    { "id": "2", "title": "another title", "views": 200 }
+  "users": [
+    { "id": "10101", "nombre_completo": "Juan Pérez", "correo": "juan.perez@email.com" },
+    { "id": "10102", "nombre_completo": "Ana Gómez", "correo": "ana.gomez@email.com" },
+    { "id": "10103", "nombre_completo": "Carlos Ruiz", "correo": "carlos.ruiz@email.com" },
+    { "id": "10104", "nombre_completo": "Lucía Fernández", "correo": "lucia.fdez@email.com" },
+    { "id": "10105", "nombre_completo": "Marcos Paez", "correo": "marcos.paez@email.com" },
+    { "id": "10106", "nombre_completo": "Sofía Castro", "correo": "sofia.castro@email.com" },
+    { "id": "10107", "nombre_completo": "Diego Mora", "correo": "diego.mora@email.com" },
+    { "id": "10108", "nombre_completo": "Elena Sanz", "correo": "elena.sanz@email.com" },
+    { "id": "10109", "nombre_completo": "Víctor Hugo", "correo": "victor.hugo@email.com" },
+    { "id": "10110", "nombre_completo": "Valeria Soler", "correo": "valeria.soler@email.com" }
   ],
-  "comments": [
-    { "id": "1", "text": "a comment about post 1", "postId": "1" },
-    { "id": "2", "text": "another comment about post 1", "postId": "1" }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  "tasks": [
+    
+  ]
 }
