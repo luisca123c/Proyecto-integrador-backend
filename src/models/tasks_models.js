@@ -10,7 +10,7 @@ export const taskModel = {
         const [rows] = await pool.query(
             `SELECT id, title AS titulo, description AS descripcion,
                     status AS estado, priority AS prioridad,
-                    created_at AS fecha_registro
+                    created_at AS fecha_registro, updated_at AS fecha_actualizacion
              FROM tasks WHERE id = ?`,
             [result.insertId]
         );
@@ -20,7 +20,7 @@ export const taskModel = {
         const [rows] = await pool.query(
             `SELECT t.id, t.title AS titulo, t.description AS descripcion,
                     t.status AS estado, t.priority AS prioridad,
-                    t.created_at AS fecha_registro,
+                    t.created_at AS fecha_registro, t.updated_at AS fecha_actualizacion,
                     GROUP_CONCAT(tu.id_user) AS userIds_raw
              FROM tasks t
              LEFT JOIN tasks_users tu ON t.id = tu.id_task
@@ -36,7 +36,7 @@ export const taskModel = {
         const [rows] = await pool.query(
             `SELECT id, title AS titulo, description AS descripcion,
                     status AS estado, priority AS prioridad,
-                    created_at AS fecha_registro
+                    created_at AS fecha_registro, updated_at AS fecha_actualizacion
              FROM tasks WHERE id = ?`,
             [id]
         );
@@ -59,7 +59,7 @@ export const taskModel = {
         const [rows] = await pool.query(
             `SELECT id, title AS titulo, description AS descripcion,
                     status AS estado, priority AS prioridad,
-                    created_at AS fecha_registro
+                    created_at AS fecha_registro, updated_at AS fecha_actualizacion
              FROM tasks WHERE id = ?`,
             [id]
         );
@@ -104,7 +104,7 @@ export const taskModel = {
     getAllTaskByFilter: async (estado, prioridad, usuario, fecha_inicio, fecha_fin) => {
         let query = `SELECT DISTINCT t.id, t.title AS titulo, t.description AS descripcion,
                             t.status AS estado, t.priority AS prioridad,
-                            t.created_at AS fecha_registro
+                            t.created_at AS fecha_registro, t.updated_at AS fecha_actualizacion
                      FROM tasks t
                      LEFT JOIN tasks_users tu ON t.id = tu.id_task
                      WHERE 1=1`;
