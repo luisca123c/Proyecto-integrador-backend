@@ -54,7 +54,7 @@ export const userModel = {
         const [rows] = await pool.query(
             `SELECT t.id, t.title AS titulo, t.description AS descripcion,
                     t.status AS estado, t.priority AS prioridad,
-                    t.created_at, t.updated_at
+                    t.created_at AS fecha_registro
              FROM tasks t
              JOIN tasks_users tu ON t.id = tu.id_task
              WHERE tu.id_user = ?`,
