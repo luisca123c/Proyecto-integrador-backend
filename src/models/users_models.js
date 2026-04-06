@@ -61,5 +61,12 @@ export const userModel = {
             [userid]
         );
         return rows;
-    }
+    },
+    hasTasks: async (id) => {
+    const [rows] = await pool.query(
+        "SELECT COUNT(*) AS total FROM tasks_users WHERE id_user = ?",
+        [id]
+    );
+    return rows[0].total > 0;
+}
 };
